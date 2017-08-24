@@ -1,0 +1,10 @@
+#!/bin/bash
+
+branch=$(git rev-parse --abbrev-ref HEAD 2> /dev/null)
+#echo "branch=$branch"
+if [ $branch ]; then
+  prompt=" [$branch]"
+else
+  prompt=""
+fi
+printf "$prompt"

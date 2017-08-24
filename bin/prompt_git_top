@@ -1,0 +1,32 @@
+#!/bin/bash
+
+# If in a git repo, returns a string with the top level of the repo followed by the branch
+# and a slash followed by a slash and an ellipsis if inside the repo.
+curdir=$(pwd)
+dir=$(basename $curdir)
+parent_dir=$(dirname $curdir)
+
+# Git will not report that it's in a repo if you are in the .git directory.
+if [ $dir == '.git' ]; then
+  gittopdir=$(cd .. && git rev-parse --show-toplevel 2> /dev/null)
+else
+  gittopdir=$(git rev-parse --show-toplevel 2> /dev/null)
+fi
+
+if [ $gittopdir ]; then
+  gittop=$(basename $gittopdir)
+  if [ $curdir == $gittopdir ]; then
+    prompt=$gittop
+  else
+    parent_dir=$(dirname $curdir)
+    if [ $parent_dir == $gittopdir ]; then
+      prompt="$gittop/$dir"
+    else
+      prompt="$gittop/.../$dir"
+    fi
+  fi
+else
+  prompt=$(basename $curdir)
+fi
+
+echo "$prompt"

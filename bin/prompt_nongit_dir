@@ -1,0 +1,16 @@
+#!/bin/bash
+
+branch=$(git rev-parse --abbrev-ref HEAD 2> /dev/null)
+if [ $branch ]; then
+  exit 0
+fi
+
+curdir=$(pwd)
+dir=$(basename $curdir)
+parent_dir=$(dirname $curdir)
+
+if [ ":$1" == ":" ]; then
+  echo "$dir"
+else
+  echo "$curdir"
+fi
