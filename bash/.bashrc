@@ -14,6 +14,9 @@ alias h='history'
 alias ll='ls -Fla --color=auto'
 alias cls='clear'
 
+# For FreeBSD
+#alias ll='ls -FlaG'
+
 function g() { /usr/bin/gvim "$@" ;}
 
 # git-aware prompt (thanks cartalla!)
